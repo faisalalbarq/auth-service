@@ -1,0 +1,11 @@
+services:
+  postgres:
+    container_name: faisal-postgresql
+    image: citusdata/citus:13.2.0-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Z1s152easpwu}
+      POSTGRES_USER: faisal_user
+      POSTGRES_DB: faisal_db
+    ports:
+      - "5677:5432"

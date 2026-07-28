@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<!--    <include file="db/changelog/changes/V01__create-party.sql"/>-->
+<!--    <include file="db/changelog/changes/V02__create-employees.sql"/>-->
+<!--    <include file="db/changelog/changes/V03__create-user-login.sql"/>-->
+<!--    <include file="db/changelog/changes/V04__create-user-identity.sql"/>-->
+
+    <includeAll path="db/changelog/changes/"/>
+
+</databaseChangeLog>
