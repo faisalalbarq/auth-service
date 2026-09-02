@@ -2,8 +2,6 @@ package mzn.faisal.employeesmanagement.utils;
 
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.cfg.DateTimeFeature;
 import tools.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -17,17 +15,17 @@ public class JsonUtils {
     private JsonUtils() {} // singleton class
 
     /**
-     * Static instance of {@link ObjectMapper} pre-configured for JSON serialization and deserialization.
+     * Static instance of {@link JsonMapper} pre-configured for JSON serialization and deserialization.
      * 
      *    Ignores unknown properties in JSON input during deserialization. 
      *    Ignores explicitly ignored properties during deserialization. 
      *    Writes dates as ISO-8601 formatted strings instead of timestamps. 
      *    Excludes properties with {@code null} values during serialization. 
      */
-    private static final ObjectMapper objectMapper = JsonMapper.builder()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
-            .configure(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+    private static final JsonMapper mapper = JsonMapper.builder()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
+//            .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS) // This is the default behavior of jackson 3
 //            .addModule(new tools.jackson.datatype.jsr310.JavaTimeModule())// Support for Java 8 date/time types. But i don't need this module, because it's already included in jackson 3
 
             .changeDefaultPropertyInclusion(
@@ -42,11 +40,7 @@ public class JsonUtils {
      * @return the JSON string representation of the provided object
      */
     public static String writeValueAsString(Object obj){
-        try{
-            return objectMapper.writeValueAsString(obj);
-        } catch (Exception e){
-            throw new RuntimeException("Failed to convert object to JSON string", e);
-        }
+            return mapper.writeValueAsString(obj);
     }
 
 
@@ -59,11 +53,7 @@ public class JsonUtils {
      * @return the deserialized object of the specified type
      */
     public static <T> T readValue(String json, Class<T> clazz){
-        try{
-            return objectMapper.readValue(json, clazz);
-        } catch (Exception e){
-            throw new RuntimeException("Failed to convert JSON string to object", e);
-        }
+            return mapper.readValue(json, clazz);
     }
 
 
@@ -76,11 +66,7 @@ public class JsonUtils {
      * @return the deserialized object of the specified type
      */
     public static <T> T readValue(String json, TypeReference<T> typeReference){
-        try{
-            return objectMapper.readValue(json, typeReference);
-        } catch (Exception e){
-            throw new RuntimeException("Failed to convert JSON string to object", e);
-        }
+            return mapper.readValue(json, typeReference);
     }
 
 
@@ -93,6 +79,6 @@ public class JsonUtils {
      * @return an object of the specified class type created from the source object
      */
     public static <T> T fromObject(Object obj, Class<T> clazz){
-        return objectMapper.convertValue(obj, clazz);
+        return mapper.convertValue(obj, clazz);
     }
 }
