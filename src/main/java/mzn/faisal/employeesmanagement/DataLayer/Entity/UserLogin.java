@@ -2,12 +2,27 @@ package mzn.faisal.employeesmanagement.DataLayer.Entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
-@Entity
 @Table(name = "user_login")
-public class UserLogin {
+@Entity
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+public class UserLogin implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,34 +35,44 @@ public class UserLogin {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
-    public UserLogin() {}
 
-    public UserLogin(UUID userLoginId, UUID partyId, String password) {
-        this.userLoginId = userLoginId;
-        this.partyId = partyId;
-        this.password = password;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
-    public UUID getUserLoginId() {
-        return userLoginId;
-    }
-    public void setUserLoginId(UUID userLoginId) {
-        this.userLoginId = userLoginId;
+    @Override
+    public @Nullable String getPassword() {
+        return "";
     }
 
-    public UUID getPartyId() {
-        return partyId;
+    @Override
+    public String getUsername() {
+        return "";
     }
 
-    public void setPartyId(UUID partyId) {
-        this.partyId = partyId;
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
     }
-    public void setPassword(String password) {
-        this.password = password;
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }

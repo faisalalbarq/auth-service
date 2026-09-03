@@ -2,28 +2,27 @@ package mzn.faisal.employeesmanagement.DataLayer.Entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 
 @Entity
 @Table(name = "party")
 public class Party {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "party_id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID partyId;
 
-    public Party() {}
-
-    public Party(UUID partyId) {
-        this.partyId = partyId;
-    }
-
-    public UUID getPartyId() {
-        return partyId;
-    }
-    public void setPartyId(UUID partyId) {
-        this.partyId = partyId;
-    }
+    @Column(name = "party_name")
+    private String partyName;
 }
