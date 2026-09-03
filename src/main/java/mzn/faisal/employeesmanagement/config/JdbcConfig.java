@@ -54,7 +54,7 @@ public class JdbcConfig {
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource); // بياخد الـ Write DataSource التلقائي
+        liquibase.setDataSource(dataSource);
         liquibase.setChangeLog("classpath:db/changelog/db.changelog-master.xml");
         return liquibase;
     }
