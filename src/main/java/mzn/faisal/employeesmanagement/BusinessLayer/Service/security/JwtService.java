@@ -1,4 +1,4 @@
-package mzn.faisal.employeesmanagement.security;
+package mzn.faisal.employeesmanagement.BusinessLayer.Service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
