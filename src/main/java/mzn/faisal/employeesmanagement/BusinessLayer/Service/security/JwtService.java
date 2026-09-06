@@ -14,14 +14,15 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    @Value("${jwt.key}")
-    private String secret;
+    private final Long expiration;
+    private final SecretKey key;
 
-    @Value("${jwt.access-token-expiration}")
-    private Long expiration;
-
-    private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    public JwtService(
+            @Value("${jwt.key}") String secret,
+            @Value("${jwt.access-token-expiration}") Long expiration
+    ){
+        this.expiration = expiration;
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
 
@@ -40,7 +41,7 @@ public class JwtService {
 
     public Claims getAllClaimsFromToken(String token){
         return Jwts.parser()
-                .verifyWith(getSecretKey())
+                .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -60,7 +61,7 @@ public class JwtService {
                 .subject(username)
                 .issuedAt(now)
                 .expiration(expirationDate)
-                .signWith(getSecretKey())
+                .signWith(key)
                 .compact();
     }
 
