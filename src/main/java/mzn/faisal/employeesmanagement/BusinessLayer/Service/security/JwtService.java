@@ -47,9 +47,21 @@ public class JwtService {
                 .getPayload();
     }
 
-    public Boolean isTokenExpired(String token){
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
+    private Boolean isTokenExpired(String token) {
+        try {
+            final Date expiration = getExpirationDateFromToken(token);
+            return expiration.before(new Date());
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public Boolean validateToken(String token) {
+        try {
+            return !isTokenExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String generateToken(String username){
