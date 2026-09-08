@@ -48,12 +48,12 @@ public class UserLogin implements UserDetails {
 
     @Override
     public @Nullable String getPassword() {
-        return "";
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.userLoginId.toString();
     }
 
     @Override
