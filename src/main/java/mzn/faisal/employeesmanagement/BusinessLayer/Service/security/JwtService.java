@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtService implements TokenService {
 
     private final Long expiration;
     private final SecretKey key;
@@ -25,7 +25,7 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-
+    @Override
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
@@ -56,7 +56,8 @@ public class JwtService {
         }
     }
 
-    public Boolean validateToken(String token) {
+    @Override
+    public boolean validateToken(String token) {
         try {
             return !isTokenExpired(token);
         } catch (Exception e) {
@@ -64,6 +65,7 @@ public class JwtService {
         }
     }
 
+    @Override
     public String generateToken(String username){
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expiration);

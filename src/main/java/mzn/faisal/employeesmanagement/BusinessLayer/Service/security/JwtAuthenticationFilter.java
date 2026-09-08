@@ -17,9 +17,9 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
-    public JwtAuthenticationFilter(JwtService jwtService) {
-        this.jwtService = jwtService;
+    private final TokenService tokenService;
+    public JwtAuthenticationFilter(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
 
@@ -31,8 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if(authHeader != null && authHeader.startsWith("Bearer ")){
             String token = authHeader.substring(7);
 
-            if(jwtService.validateToken(token)){
-                String username = jwtService.getUsernameFromToken(token);
+            if(tokenService.validateToken(token)){
+                String username = tokenService.getUsernameFromToken(token);
 
                 var authentication = UsernamePasswordAuthenticationToken.authenticated(
                         username, null, List.of()
