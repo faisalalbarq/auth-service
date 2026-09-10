@@ -12,6 +12,7 @@ import mzn.faisal.employeesmanagement.DataLayer.Repository.PartyRepository;
 import mzn.faisal.employeesmanagement.DataLayer.Repository.UserIdentityRepository;
 import mzn.faisal.employeesmanagement.DataLayer.Repository.UserLoginRepository;
 import mzn.faisal.employeesmanagement.utils.UserIdentityUtils.IdentityUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,11 +33,11 @@ public class RegisterService {
         String formattedIdentity = IdentityUtils.validateAndFormat(request.identityValue());
 
         if (formattedIdentity.isBlank()) {
-            throw new FrontendException("Invalididentityformat");
+            throw new FrontendException("invalidIdentityFormat", HttpStatus.BAD_REQUEST);
         }
 
         if(userIdentityRepository.existsByUserIdentityValue(formattedIdentity)) {
-            throw new FrontendException("Useralreadyexists");
+            throw new FrontendException("userAlreadyExists");
         }
 
         Party party = new Party();
