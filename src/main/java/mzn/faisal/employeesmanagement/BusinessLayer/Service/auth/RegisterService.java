@@ -2,6 +2,7 @@ package mzn.faisal.employeesmanagement.BusinessLayer.Service.auth;
 
 import lombok.RequiredArgsConstructor;
 import mzn.faisal.employeesmanagement.BusinessLayer.Service.security.JwtService;
+import mzn.faisal.employeesmanagement.BusinessLayer.config.FrontendException;
 import mzn.faisal.employeesmanagement.BusinessLayer.dto.auth.register.RegisterRequest;
 import mzn.faisal.employeesmanagement.BusinessLayer.dto.auth.register.RegisterResponse;
 import mzn.faisal.employeesmanagement.DataLayer.Entity.Party;
@@ -31,11 +32,11 @@ public class RegisterService {
         String formattedIdentity = IdentityUtils.validateAndFormat(request.identityValue());
 
         if (formattedIdentity.isBlank()) {
-            throw new RuntimeException("Invalid identity format");
+            throw new FrontendException("Invalididentityformat");
         }
 
-        if(userIdentityRepository.existsByUserIdentityValue(formattedIdentity)){
-            throw new RuntimeException("User already exists");
+        if(userIdentityRepository.existsByUserIdentityValue(formattedIdentity)) {
+            throw new FrontendException("Useralreadyexists");
         }
 
         Party party = new Party();

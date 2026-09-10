@@ -1,4 +1,4 @@
-package mzn.faisal.employeesmanagement.config;
+package mzn.faisal.employeesmanagement.BusinessLayer.config;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Value;

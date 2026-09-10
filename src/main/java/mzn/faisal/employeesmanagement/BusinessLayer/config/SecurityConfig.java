@@ -1,4 +1,4 @@
-package mzn.faisal.employeesmanagement.config;
+package mzn.faisal.employeesmanagement.BusinessLayer.config;
 
 import jakarta.servlet.http.HttpServletResponse;
 import mzn.faisal.employeesmanagement.BusinessLayer.Service.security.JwtAuthenticationFilter;
