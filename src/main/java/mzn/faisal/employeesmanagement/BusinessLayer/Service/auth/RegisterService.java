@@ -10,8 +10,10 @@ import mzn.faisal.employeesmanagement.DataLayer.Entity.UserLogin;
 import mzn.faisal.employeesmanagement.DataLayer.Repository.PartyRepository;
 import mzn.faisal.employeesmanagement.DataLayer.Repository.UserIdentityRepository;
 import mzn.faisal.employeesmanagement.DataLayer.Repository.UserLoginRepository;
+import mzn.faisal.employeesmanagement.utils.UserIdentityUtils.IdentityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +25,16 @@ public class RegisterService {
     private final UserLoginRepository userLoginRepository;
     private final JwtService jwtService;
 
+    @Transactional
     public RegisterResponse register(RegisterRequest request){
-        if(userIdentityRepository.existsByUserIdentityValue(request.identityValue())){
+
+        String formattedIdentity = IdentityUtils.validateAndFormat(request.identityValue());
+
+        if (formattedIdentity.isBlank()) {
+            throw new RuntimeException("Invalid identity format");
+        }
+
+        if(userIdentityRepository.existsByUserIdentityValue(formattedIdentity)){
             throw new RuntimeException("User already exists");
         }
 
@@ -39,12 +49,12 @@ public class RegisterService {
         userLogin = userLoginRepository.save(userLogin);
 
 
-        int userIdentityTypeId = request.identityValue().contains("@") ? 1 : 2;
+        int userIdentityTypeId = formattedIdentity.contains("@") ? 1 : 2;
 
         UserIdentity userIdentity = new UserIdentity();
         userIdentity.setUserLoginId(userLogin.getUserLoginId());
         userIdentity.setUserIdentityTypeId(userIdentityTypeId);
-        userIdentity.setUserIdentityValue(request.identityValue().trim().toLowerCase());
+        userIdentity.setUserIdentityValue(formattedIdentity);
         userIdentity = userIdentityRepository.save(userIdentity);
 
         String token = jwtService.generateToken(userLogin.getUserLoginId().toString());
