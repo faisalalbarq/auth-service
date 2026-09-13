@@ -5,5 +5,6 @@
   "nameIsRequired": "اسم المستخدم مطلوب.",
   "identityIsRequired": "رقم الهاتف أو البريد الإلكتروني مطلوب.",
   "passwordIsRequired": "كلمة المرور مطلوبة.",
-  "validationFailed": "فشل التحقق من صحة البيانات."
+  "validationFailed": "فشل التحقق من صحة البيانات.",
+  "userRegisteredSuccessfully": "تم تسجيل حسابك بنجاح."
 }

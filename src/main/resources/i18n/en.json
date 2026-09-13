@@ -5,5 +5,6 @@
   "nameIsRequired": "Name is required.",
   "identityIsRequired": "Identity value (Email/Phone) is required.",
   "passwordIsRequired": "Password is required.",
-  "validationFailed": "Data validation failed."
+  "validationFailed": "Data validation failed.",
+  "userRegisteredSuccessfully": "Your account has been registered successfully."
 }
