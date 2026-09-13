@@ -4,6 +4,7 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.io.InputStream;
 
 /**
  * Utility class for JSON serialization and deserialization.
@@ -80,5 +81,19 @@ public class JsonUtils {
      */
     public static <T> T fromObject(Object obj, Class<T> clazz){
         return mapper.convertValue(obj, clazz);
+    }
+
+    /**
+     * Deserializes JSON content from an InputStream into an object of specified class type.
+     */
+    public static <T> T readValue(InputStream src, Class<T> clazz) {
+        return mapper.readValue(src, clazz);
+    }
+
+    /**
+     * Deserializes JSON content from an InputStream using a TypeReference.
+     */
+    public static <T> T readValue(InputStream src, TypeReference<T> typeReference) {
+        return mapper.readValue(src, typeReference);
     }
 }

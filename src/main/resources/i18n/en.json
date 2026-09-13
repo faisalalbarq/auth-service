@@ -1,0 +1,9 @@
+{
+  "invalidPasswordFormat": "Password must be at least 8 characters long, containing uppercase, number, and symbol.",
+  "userAlreadyExists": "User already exists in the system.",
+  "invalidIdentityFormat": "Invalid email or phone number format.",
+  "nameIsRequired": "Name is required.",
+  "identityIsRequired": "Identity value (Email/Phone) is required.",
+  "passwordIsRequired": "Password is required.",
+  "validationFailed": "Data validation failed."
+}

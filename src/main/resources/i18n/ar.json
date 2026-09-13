@@ -1,0 +1,9 @@
+{
+  "invalidPasswordFormat": "كلمة المرور يجب أن تحتوي على 8 خانات على الأقل، حرف كبير، رقم، ورمز.",
+  "userAlreadyExists": "المستخدم مسجل مسبقاً في النظام.",
+  "invalidIdentityFormat": "صيغة البريد الإلكتروني أو رقم الهاتف غير صحيحة.",
+  "nameIsRequired": "اسم المستخدم مطلوب.",
+  "identityIsRequired": "رقم الهاتف أو البريد الإلكتروني مطلوب.",
+  "passwordIsRequired": "كلمة المرور مطلوبة.",
+  "validationFailed": "فشل التحقق من صحة البيانات."
+}
