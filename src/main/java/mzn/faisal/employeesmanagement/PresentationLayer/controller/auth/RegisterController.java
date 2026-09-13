@@ -1,6 +1,7 @@
 package mzn.faisal.employeesmanagement.PresentationLayer.controller.auth;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mzn.faisal.employeesmanagement.BusinessLayer.Service.auth.RegisterService;
 import mzn.faisal.employeesmanagement.BusinessLayer.dto.auth.register.RegisterRequest;
@@ -21,7 +22,7 @@ public class RegisterController {
     private final RegisterService registerService;
 
     @PostMapping("/register")
-    public ResponseEntity<AppResponse<RegisterResponse>> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<AppResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest request){
         RegisterResponse response = registerService.register(request);
 
         return ResponseEntity
