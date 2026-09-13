@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErrorResponse {
+public class ExceptionResponse {
     private String message;
     private int code;
     private long timeStamp;

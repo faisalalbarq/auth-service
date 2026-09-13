@@ -1,8 +1,7 @@
 package mzn.faisal.employeesmanagement.PresentationLayer.exception;
 
 import mzn.faisal.employeesmanagement.BusinessLayer.config.FrontendException;
-import mzn.faisal.employeesmanagement.BusinessLayer.dto.common.ErrorResponse;
-import org.springframework.http.HttpStatus;
+import mzn.faisal.employeesmanagement.BusinessLayer.dto.common.ExceptionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleFrontendException(FrontendException ex) {
-        ErrorResponse response = new ErrorResponse();
+    public ResponseEntity<ExceptionResponse> handleFrontendException(FrontendException ex) {
+        ExceptionResponse response = new ExceptionResponse();
 
         response.setMessage(ex.getMessage());
         response.setCode(ex.getStatus().value());
