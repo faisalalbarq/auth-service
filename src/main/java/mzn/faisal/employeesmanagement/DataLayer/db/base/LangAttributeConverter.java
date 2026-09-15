@@ -4,7 +4,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import mzn.faisal.employeesmanagement.utils.JsonUtils;
 
-@Converter
+@Converter(autoApply = true)
 public class LangAttributeConverter implements AttributeConverter<LangAttribute, String> {
 
     @Override

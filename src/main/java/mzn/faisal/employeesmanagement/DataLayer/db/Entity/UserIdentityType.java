@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mzn.faisal.employeesmanagement.DataLayer.db.base.LangAttribute;
+import mzn.faisal.employeesmanagement.DataLayer.db.base.LangAttributeConverter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +21,8 @@ public class UserIdentityType {
     @Id
     @Column(name = "user_identity_type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userIdentityTypeId;
+    private Short userIdentityTypeId;
 
     @Column(name = "user_identity_type_name")
-    private String userIdentityTypeName;
+    private LangAttribute userIdentityTypeName;
 }

@@ -1,0 +1,16 @@
+[
+  {
+    "userIdentityTypeId": 1,
+    "name": {
+      "en": "Email",
+      "ar": "البريد الإلكتروني"
+    }
+  },
+  {
+    "userIdentityTypeId": 2,
+    "name": {
+      "en": "Phone Number",
+      "ar": "الجوال"
+    }
+  }
+]
