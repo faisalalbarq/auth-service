@@ -1,4 +1,4 @@
-package mzn.faisal.employeesmanagement.DataLayer.Entity;
+package mzn.faisal.employeesmanagement.DataLayer.db.Entity;
 
 
 import jakarta.persistence.*;
