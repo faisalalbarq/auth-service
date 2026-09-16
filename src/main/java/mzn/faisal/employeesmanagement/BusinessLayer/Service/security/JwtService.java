@@ -70,7 +70,6 @@ public class JwtService implements TokenService {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expiration);
 
-        // getTime(): return the time in millisecond
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(now)
