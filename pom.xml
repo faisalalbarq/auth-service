@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>mzn.faisal</groupId>
-    <artifactId>employees-management</artifactId>
+    <artifactId>auth-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>employees-management</name>
-    <description>employees-management</description>
+    <name>auth-service</name>
+    <description>Authentication service</description>
     <url/>
     <licenses>
         <license/>
