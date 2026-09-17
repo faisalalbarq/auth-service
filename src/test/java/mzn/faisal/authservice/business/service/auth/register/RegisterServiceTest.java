@@ -1,4 +1,4 @@
-package mzn.faisal.authservice.business.service.auth;
+package mzn.faisal.authservice.business.service.auth.register;
 
 import mzn.faisal.authservice.business.service.security.JwtService;
 import mzn.faisal.authservice.business.dto.auth.register.RegisterRequest;

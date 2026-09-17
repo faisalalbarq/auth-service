@@ -1,9 +1,9 @@
-package mzn.faisal.authservice.presentation.controller.auth;
+package mzn.faisal.authservice.presentation.controller.auth.register;
 
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mzn.faisal.authservice.business.service.auth.RegisterService;
+import mzn.faisal.authservice.business.service.auth.register.RegisterService;
 import mzn.faisal.authservice.business.dto.auth.register.RegisterRequest;
 import mzn.faisal.authservice.business.dto.auth.register.RegisterResponse;
 import mzn.faisal.authservice.business.dto.common.AppResponse;
