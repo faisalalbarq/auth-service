@@ -1,3 +1,5 @@
+name: auth-service
+
 services:
   postgres:
     container_name: faisal-postgresql
@@ -12,5 +14,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    container_name: faisal-redis
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6993:6379"
+    command: redis-server --notify-keyspace-events Ex
+    volumes:
+      - redis_data:/data
+
 volumes:
   postgres_data:
+  redis_data:
