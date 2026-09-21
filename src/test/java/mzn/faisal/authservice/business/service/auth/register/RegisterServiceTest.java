@@ -15,14 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.UUID;
-
 
 @ExtendWith(MockitoExtension.class)
 class RegisterServiceTest {
@@ -64,12 +64,15 @@ class RegisterServiceTest {
         given(partyRepository.save(any(Party.class))).willReturn(savedParty);
         given(passwordEncoder.encode(request.password())).willReturn("encodedPassword123");
         given(userLoginRepository.save(any(UserLogin.class))).willReturn(savedLogin);
-        given(jwtService.generateToken(generatedLoginId.toString())).willReturn("mocked-jwt-token");
+
+        given(jwtService.generateAccessToken(generatedLoginId.toString())).willReturn("mocked-access-token");
+        given(jwtService.generateRefreshToken(generatedLoginId.toString())).willReturn("mocked-refresh-token");
 
         RegisterResponse response = registerService.register(request);
 
         assertThat(response).isNotNull();
-        assertThat(response.token()).isEqualTo("mocked-jwt-token");
+        assertThat(response.accessToken()).isEqualTo("mocked-access-token");
+        assertThat(response.refreshToken()).isEqualTo("mocked-refresh-token");
         assertThat(response.partyName()).isEqualTo("Faisal");
 
         verify(partyRepository).save(any(Party.class));

@@ -74,14 +74,20 @@ class LoginServiceTest {
                     .thenReturn(Optional.of(userLogin));
             when(passwordEncoder.matches("Password123!", "hashedPassword"))
                     .thenReturn(true);
-            when(jwtService.generateToken(userLoginId.toString()))
-                    .thenReturn("mocked-jwt-token");
+
+            when(jwtService.generateAccessToken(userLoginId.toString()))
+                    .thenReturn("mocked-access-token");
+            when(jwtService.generateRefreshToken(userLoginId.toString()))
+                    .thenReturn("mocked-refresh-token");
 
             LoginResponse response = loginService.login(validRequest);
 
             assertNotNull(response);
-            assertEquals("mocked-jwt-token", response.token());
-            verify(jwtService, times(1)).generateToken(userLoginId.toString());
+            assertEquals("mocked-access-token", response.accessToken());
+            assertEquals("mocked-refresh-token", response.refreshToken());
+
+            verify(jwtService, times(1)).generateAccessToken(userLoginId.toString());
+            verify(jwtService, times(1)).generateRefreshToken(userLoginId.toString());
         }
     }
 
@@ -123,7 +129,8 @@ class LoginServiceTest {
                     .thenReturn(false);
 
             assertThrows(FrontendException.class, () -> loginService.login(validRequest));
-            verify(jwtService, never()).generateToken(anyString());
+            verify(jwtService, never()).generateAccessToken(anyString());
+            verify(jwtService, never()).generateRefreshToken(anyString());
         }
     }
 }

@@ -14,14 +14,17 @@ import java.util.function.Function;
 @Service
 public class JwtService implements TokenService {
 
-    private final Long expiration;
+    private final Long accessExpiration;
+    private final Long refreshExpiration;
     private final SecretKey key;
 
     public JwtService(
             @Value("${jwt.key}") String secret,
-            @Value("${jwt.access-token-expiration}") Long expiration
+            @Value("${jwt.access-token-expiration}") Long accessExpiration,
+            @Value("${jwt.refresh-token-expiration}") Long refreshExpiration
     ){
-        this.expiration = expiration;
+        this.accessExpiration = accessExpiration;
+        this.refreshExpiration = refreshExpiration;
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -65,10 +68,21 @@ public class JwtService implements TokenService {
         }
     }
 
+
+    public String generateAccessToken(String username){
+        return generateToken(username, accessExpiration);
+    }
+
+    public String generateRefreshToken(String username){
+        return generateToken(username, refreshExpiration);
+    }
+
+
+
     @Override
-    public String generateToken(String username){
+    public String generateToken(String username, Long expirationTime){
         Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + expiration);
+        Date expirationDate = new Date(now.getTime() + expirationTime);
 
         return Jwts.builder()
                 .subject(username)

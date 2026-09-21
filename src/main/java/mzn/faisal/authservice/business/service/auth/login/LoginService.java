@@ -46,9 +46,8 @@ public class LoginService {
             throw new FrontendException("invalidPassword", HttpStatus.UNAUTHORIZED);
         }
 
-        String accessToken = jwtService.generateToken(userLogin.getUserLoginId().toString());
-        String refreshToken = refreshTokenService.generateRefreshToken(userLogin.getUserLoginId().toString());
-
+        String accessToken = jwtService.generateAccessToken(userLogin.getUserLoginId().toString());
+        String refreshToken = jwtService.generateRefreshToken(userLogin.getUserLoginId().toString());
         return new LoginResponse(accessToken, refreshToken);
     }
 }

@@ -59,9 +59,11 @@ public class RegisterService {
         userIdentity.setUserIdentityValue(formattedIdentity);
         userIdentity = userIdentityRepository.save(userIdentity);
 
-        String token = jwtService.generateToken(userLogin.getUserLoginId().toString());
 
-        return new RegisterResponse(token, party.getPartyName());
+        String accessToken = jwtService.generateAccessToken(userLogin.getUserLoginId().toString());
+        String refreshToken = jwtService.generateRefreshToken(userLogin.getUserLoginId().toString());
+
+        return new RegisterResponse(accessToken, refreshToken, party.getPartyName());
     }
 
 }
