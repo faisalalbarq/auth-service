@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mzn.faisal.authservice.business.dto.auth.login.LoginRequest;
 import mzn.faisal.authservice.business.dto.auth.login.LoginResponse;
 import mzn.faisal.authservice.business.service.security.JwtService;
+import mzn.faisal.authservice.business.service.security.RefreshTokenService;
 import mzn.faisal.authservice.data.db.entity.UserIdentity;
 import mzn.faisal.authservice.data.db.entity.UserLogin;
 import mzn.faisal.authservice.data.repository.UserIdentityRepository;
@@ -23,6 +24,7 @@ public class LoginService {
     private final UserIdentityRepository userIdentityRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
 
 
     @Transactional
@@ -44,7 +46,9 @@ public class LoginService {
             throw new FrontendException("invalidPassword", HttpStatus.UNAUTHORIZED);
         }
 
-        String token = jwtService.generateToken(userLogin.getUserLoginId().toString());
-        return new LoginResponse(token);
+        String accessToken = jwtService.generateToken(userLogin.getUserLoginId().toString());
+        String refreshToken = refreshTokenService.generateRefreshToken(userLogin.getUserLoginId().toString());
+
+        return new LoginResponse(accessToken, refreshToken);
     }
 }
