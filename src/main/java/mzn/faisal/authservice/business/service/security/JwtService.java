@@ -92,4 +92,16 @@ public class JwtService implements TokenService {
                 .compact();
     }
 
+    public Long getRemainingExpirationMs(String token){
+        Date expiration  = getExpirationDateFromToken(token);
+        long remainingMs = expiration.getTime() - System.currentTimeMillis();
+        return remainingMs > 0 ? remainingMs : 0L;
+    }
+
+    public String extractTokenFromHeader(String header) {
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        return null;
+    }
 }
